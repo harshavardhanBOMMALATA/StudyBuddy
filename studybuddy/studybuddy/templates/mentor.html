@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentor Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-blue-100 font-sans min-h-screen flex items-center justify-center">
+  <div class="max-w-xl w-full p-8 bg-white rounded-3xl shadow-xl">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">🧑‍🏫 Join as a Mentor</h1>
+    <form class="space-y-5" action="{% url 'mentor' %}">
+      <div>
+        <label for="userid" class="block text-sm font-semibold text-blue-800">User ID</label>
+        <input type="text" id="userid" name="userid" class="mt-1 block w-full p-3 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+      </div>
+      <div>
+        <label for="password" class="block text-sm font-semibold text-blue-800">Password</label>
+        <input type="password" id="password" name="password" class="mt-1 block w-full p-3 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+      </div>
+      <div>
+        <label for="category" class="block text-sm font-semibold text-blue-800">Mentorship Category</label>
+        <select id="category" name="category" class="mt-1 block w-full p-3 border border-blue-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+          <option disabled selected>Select a category</option>
+          <option>Data Structures & Algorithms</option>
+          <option>Web Development</option>
+          <option>Machine Learning / AI</option>
+          <option>Higher Studies / Scholarships</option>
+          <option>Career Guidance</option>
+          <option>Project Support</option>
+          <option>Others</option>
+        </select>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl text-lg font-semibold hover:bg-blue-700 transition duration-300">Register</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

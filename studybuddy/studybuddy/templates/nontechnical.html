@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Non-Technical Fun & Mental Health Zone</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #c3ecff, #fcb1fc);
+      font-family: 'Comic Neue', cursive;
+    }
+
+    .btn-primary {
+      background-color: #6a5acd;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #836fff;
+      transform: scale(1.05);
+    }
+
+    .card {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;
+      padding: 25px;
+      background-color: rgba(255, 255, 255, 0.9);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .header {
+      background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80') no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <h1 class="text-4xl font-bold">Welcome to Non-Technical Fun & Mental Health Zone</h1>
+    <p class="text-xl mt-2">Take a break, have fun, and enhance your mental health through games and events!</p>
+  </header>
+
+  <!-- Game Creation and Joining Section -->
+  <section class="max-w-6xl mx-auto p-6 my-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="card">
+        <h2 class="text-2xl font-semibold mb-4">🎮 Create Your Own Fun Game</h2>
+        <p class="mb-4">Unleash your creativity! Build your game and invite others to join the fun. 🎉</p>
+        <button class="btn-primary px-4 py-2 rounded-full w-full">Create Game</button>
+      </div>
+      <div class="card">
+        <h2 class="text-2xl font-semibold mb-4">🕹 Join a Game</h2>
+        <p class="mb-4">Join games created by others and enjoy some stress-busting action! 😄</p>
+        <button class="btn-primary px-4 py-2 rounded-full w-full">Join Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Non-Technical Events Section -->
+  <section class="max-w-6xl mx-auto p-6 my-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="card">
+        <h2 class="text-2xl font-semibold mb-4">🧘 Stress Relief Yoga</h2>
+        <p class="mb-4">Relax and refresh with a calming yoga session that clears the mind and stretches the soul.</p>
+        <button class="btn-primary px-4 py-2 rounded-full w-full">Join Yoga</button>
+      </div>
+      <div class="card">
+        <h2 class="text-2xl font-semibold mb-4">🧠 Meditation for Mental Clarity</h2>
+        <p class="mb-4">Join our peaceful guided meditations to reset your mind and improve focus.</p>
+        <button class="btn-primary px-4 py-2 rounded-full w-full">Join Meditation</button>
+      </div>
+      <div class="card">
+        <h2 class="text-2xl font-semibold mb-4">🎨 Creative Art Therapy</h2>
+        <p class="mb-4">Use creativity as therapy! Paint, draw, and share your art in a safe, fun space.</p>
+        <button class="btn-primary px-4 py-2 rounded-full w-full">Join Art Therapy</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- College-Specific Offline Events Section -->
+  <section class="max-w-6xl mx-auto p-6 my-10">
+    <div class="card">
+      <h2 class="text-3xl font-semibold mb-4">🏫 College Exclusive Events</h2>
+      <input type="text" placeholder="Search your college..." class="w-full px-4 py-2 mb-4 border rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500">
+      <div class="flex gap-4" style="justify-content: space-between;">
+        <a href="{% url 'join' %}" style="padding: 3px 20%;background-color: #836fff; border-radius: 10px;">Create College Event</a>
+        <a href="{% url 'create' %}" style="padding: 3px 20%;background-color: #836fff; border-radius: 10px;">Join college Event</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-indigo-900 text-white py-4 text-center">
+    <p>Designed with 💖 for student well-being. &copy; 2025 Non-Technical Zone</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global Community Chat</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function sendMessage(){
+      const input = document.getElementById("message-input");
+      const fileInput = document.getElementById("file-input");
+      const chatBox = document.getElementById("chat-box");
+
+      if (input.value.trim() !== "" || fileInput.files.length > 0) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("mb-2");
+
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        messageDiv.innerHTML = <strong>You:</strong> ${input.value} <span class="text-xs text-gray-500 ml-2">${timeString}</span>;
+
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          const fileUrl = URL.createObjectURL(file);
+          const fileLink = document.createElement("a");
+          fileLink.href = fileUrl;
+          fileLink.download = file.name;
+          fileLink.target = "_blank";
+          fileLink.className = "block text-blue-600 underline mt-1 text-sm";
+          fileLink.textContent = 📎 ${file.name};
+          messageDiv.appendChild(fileLink);
+          fileInput.value = "";
+          document.getElementById("file-name").textContent = "";
+        }
+
+        chatBox.appendChild(messageDiv);
+        input.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+
+    function handleEnter(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    }
+
+    function showFileName() {
+      const fileInput = document.getElementById("file-input");
+      const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "";
+      document.getElementById("file-name").textContent = fileName ? 📎 ${fileName} : "";
+    }
+  </script>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-white to-green-100 font-sans">
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <h1 class="text-2xl font-bold">🌍 Global Community Chat</h1>
+    <p class="text-sm">Helping students connect with mentors, share resources, and clarify doubts across the world.</p>
+  </header>
+
+  <main class="p-4 max-w-4xl mx-auto">
+    <!-- Chat Section -->
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">💬 Public Chatroom</h2>
+      <p class="text-sm text-gray-600 mb-2">Discuss topics in real-time, connect with peers and mentors.</p>
+
+      <!-- Pinned Messages -->
+      
+
+      <div class="bg-white rounded shadow p-4 h-64 overflow-y-scroll" id="chat-box">
+        <div class="mb-2">
+          <strong>Jane 🇺🇸:</strong> Anyone working on a Python project?
+        </div>
+        <div class="mb-2">
+          <strong>Raj 🇮🇳:</strong> Yes! I'm building a weather app using Flask.
+        </div>
+      </div>
+
+      <div class="mt-2 flex items-center">
+        <label for="file-input" class="cursor-pointer px-2 text-gray-500 hover:text-gray-700">
+          📎
+        </label>
+        <input type="file" id="file-input" class="hidden" onchange="showFileName()"/>
+        <span id="file-name" class="text-xs text-gray-600 ml-2 truncate w-32"></span>
+        <input id="message-input" type="text" placeholder="Type a message..." class="flex-grow p-2 border rounded-l ml-2" onkeydown="handleEnter(event)" />
+        <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-r">Send</button>
+      </div>
+    </section>
+
+    <!-- Query Section -->
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">❓ Ask for Help or Mentorship</h2>
+      <p class="text-sm text-gray-600 mb-2">Post questions and get help from knowledgeable peers and mentors.</p>
+      <form class="bg-white p-4 rounded shadow">
+        <input type="text" placeholder="Enter your question here..." class="w-full p-2 border mb-2 rounded" />
+        <textarea placeholder="Add more details or tag a mentor..." class="w-full p-2 border mb-2 rounded h-24"></textarea>
+        <select class="w-full p-2 border mb-2 rounded">
+          <option disabled selected>Select field of guidance/support</option>
+          <option>Data Structures & Algorithms</option>
+          <option>Web Development</option>
+          <option>Machine Learning / AI</option>
+          <option>Higher Studies / Scholarships</option>
+          <option>Career Guidance</option>
+          <option>Project Support</option>
+          <option>Others</option>
+        </select>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Post Question</button>
+      </form>
+    </section>
+
+    <!-- Knowledge Sharing -->
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">📚 Resource Sharing & Tips</h2>
+      <p class="text-sm text-gray-600 mb-2">Browse study guides, helpful links, and tips shared by community members.</p>
+      <div class="bg-white p-4 rounded shadow divide-y divide-gray-200">
+        <div class="p-2 hover:bg-yellow-100 transition transform hover:scale-105 cursor-pointer">
+          <h3 class="font-semibold text-blue-700">Tips for mastering DSA</h3>
+          <p class="text-xs text-gray-600">Shared by Amir 🇵🇰 — Click to highlight</p>
+        </div>
+        <div class="p-2 hover:bg-yellow-100 transition transform hover:scale-105 cursor-pointer">
+          <h3 class="font-semibold text-blue-700">How to start with Open Source</h3>
+          <p class="text-xs text-gray-600">Shared by Maria 🇧🇷 — Click to highlight</p>
+        </div>
+        <div class="p-2 hover:bg-yellow-100 transition transform hover:scale-105 cursor-pointer">
+          <h3 class="font-semibold text-blue-700">Study Buddy App Structure</h3>
+          <p class="text-xs text-gray-600">Shared by Team Study Buddy 🌐 — Click to highlight</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mentorship Zone -->
+    <section>
+      <h2 class="text-xl font-semibold mb-2">🧑‍🏫 Mentorship Zone</h2>
+      <p class="text-sm text-gray-600 mb-2">Meet mentors, join group discussions, and get guidance on your learning journey.</p>
+      <div class="bg-white p-4 rounded shadow">
+        <p class="text-gray-700">✨ Coming soon: A dedicated mentor directory and group discussion events.</p>
+        <a href="{% url 'mentor' %}" style="padding: 3px 5px; text-decoration: none;background-color: blueviolet; color: white; border-radius: 10px; margin: 5px;">Join as Mentor</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center text-gray-500 text-sm py-4">
+    © 2025 Global Chat Community. Empowering learners everywhere.
+  </footer>
+</body>
+</html>

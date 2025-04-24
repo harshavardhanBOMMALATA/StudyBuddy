@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soft Skills - Student Buddy</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 36px;
+      color: #00ffe7;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .search-bar {
+      width: 70%;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    .search-bar:focus {
+      border-color: #00ffe7;
+    }
+
+    .skills-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .skill-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .skill-card h3 {
+      font-size: 22px;
+      color: #00ffe7;
+      margin-bottom: 15px;
+    }
+
+    .skill-card p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #ddd;
+    }
+
+    .resources-section {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .resource-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .resource-card a {
+      text-decoration: none;
+      color: #00ffe7;
+      font-size: 16px;
+    }
+
+    .resource-card a:hover {
+      text-decoration: underline;
+    }
+
+    .add-tab {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .add-tab button {
+      padding: 12px 30px;
+      background-color: #00ffe7;
+      border: none;
+      border-radius: 30px;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .add-tab button:hover {
+      background-color: #00cfc0;
+    }
+
+    @media (max-width: 768px) {
+      .search-bar {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Soft Skills Development</h1>
+    <p>Explore essential soft skills and resources to boost your personal and professional growth!</p>
+  </header>
+
+  <!-- Search Bar Section -->
+  <div class="search-container">
+    <input type="text" class="search-bar" placeholder="Search for skills or resources..." id="search-bar">
+  </div>
+
+  <!-- Skills Section -->
+  <section class="skills-section" id="skills-section">
+    <div class="skill-card" data-skill="communication">
+      <h3>Communication</h3>
+      <p>Effective communication is essential for success in any field. It involves both speaking and listening skills, as well as the ability to convey ideas clearly.</p>
+    </div>
+    <div class="skill-card" data-skill="teamwork">
+      <h3>Teamwork</h3>
+      <p>Being able to work effectively with others is crucial. Teamwork involves collaboration, mutual respect, and the ability to work towards a common goal.</p>
+    </div>
+    <div class="skill-card" data-skill="leadership">
+      <h3>Leadership</h3>
+      <p>Leadership skills are critical for guiding teams and individuals. Strong leadership involves decision-making, motivating others, and leading by example.</p>
+    </div>
+    <div class="skill-card" data-skill="adaptability">
+      <h3>Adaptability</h3>
+      <p>Adaptability refers to the ability to adjust to new conditions, learn new skills, and embrace change in a positive way.</p>
+    </div>
+    <div class="skill-card" data-skill="time-management">
+      <h3>Time Management</h3>
+      <p>Time management is the ability to plan and organize your time effectively, prioritizing tasks to achieve maximum productivity.</p>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="resources-section" id="resources-section">
+    <div class="resource-card" data-resource="communication">
+      <h4>Communication Resources</h4>
+      <a href="https://www.coursera.org/learn/communication-skills" target="_blank">Learn Effective Communication on Coursera</a>
+    </div>
+    <div class="resource-card" data-resource="teamwork">
+      <h4>Teamwork Resources</h4>
+      <a href="https://www.edx.org/course/teamwork-and-collaboration" target="_blank">Teamwork and Collaboration on edX</a>
+    </div>
+    <div class="resource-card" data-resource="leadership">
+      <h4>Leadership Resources</h4>
+      <a href="https://www.udemy.com/course/leadership-skills" target="_blank">Leadership Skills on Udemy</a>
+    </div>
+    <div class="resource-card" data-resource="adaptability">
+      <h4>Adaptability Resources</h4>
+      <a href="https://www.linkedin.com/learning/adaptability-at-work" target="_blank">Adaptability at Work on LinkedIn Learning</a>
+    </div>
+    <div class="resource-card" data-resource="time-management">
+      <h4>Time Management Resources</h4>
+      <a href="https://www.skillsuccess.com/course/time-management-tips/" target="_blank">Time Management Tips on Skill Success</a>
+    </div>
+  </section>
+
+  <!-- Add Skill Button -->
+  <div class="add-tab">
+    <a href="{% url 'softskillsadd' %}" class="btn" style=" padding: 5px 7px; background-color: #00ffe7; border-radius: 5px; text-decoration: none;">
+      + Add Skill
+    </a>
+    
+  </div>
+
+  <script>
+    // Search functionality
+    document.getElementById('search-bar').addEventListener('input', function() {
+      const query = this.value.toLowerCase();
+      const skillCards = document.querySelectorAll('.skill-card');
+      const resourceCards = document.querySelectorAll('.resource-card');
+
+      // Filter skills
+      skillCards.forEach(card => {
+        const skill = card.getAttribute('data-skill').toLowerCase();
+        if (skill.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Filter resources
+      resourceCards.forEach(card => {
+        const resource = card.getAttribute('data-resource').toLowerCase();
+        if (resource.includes(query)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

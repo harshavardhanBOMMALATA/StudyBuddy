@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Day Planner</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url('https://cdn.pixabay.com/photo/2015/11/19/21/11/library-1052013_1280.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      margin-top: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #3b82f6;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+    .hour-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .hour-label {
+      width: 80px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .task-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #cbd5e0;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #f9fafb;
+    }
+    .task-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="title">📚 Daily Study Schedule</h2>
+    <form id="scheduleForm">
+      <div class="mb-6">
+        <label class="block font-medium mb-2">📅 Select Date</label>
+        <input type="date" id="scheduleDate" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+      </div>
+      <div id="hourlySchedule">
+        <script>
+          for (let hour = 0; hour < 24; hour++) {
+            const period = hour < 12 ? 'AM' : 'PM';
+            const hourFormatted = hour % 12 === 0 ? 12 : hour % 12;
+            document.write(`
+              <div class='hour-row'>
+                <label class='hour-label'>${hourFormatted} ${period}</label>
+                <input type='text' placeholder='Task for this hour' class='task-input'>
+              </div>
+            `);
+          }
+        </script>
+      </div>
+      <div class="mt-6 text-center">
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Save Schedule</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Request notification permission
+    if ('Notification' in window) {
+      Notification.requestPermission();
+    }
+
+    function scheduleNotification(dateStr, hourLabel, task) {
+      if (Notification.permission !== 'granted') return;
+
+      const [hourNum, period] = hourLabel.split(' ');
+      let hour24 = parseInt(hourNum, 10);
+      if (period === 'PM' && hour24 !== 12) hour24 += 12;
+      if (period === 'AM' && hour24 === 12) hour24 = 0;
+
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const notifyTime = new Date(year, month - 1, day, hour24);
+      const now = new Date();
+      const delay = notifyTime - now;
+
+      if (delay > 0) {
+        setTimeout(() => {
+          new Notification('Study Reminder', {
+            body: `It's ${hourLabel}. ${task}`,
+            icon: 'https://cdn-icons-png.flaticon.com/512/1946/1946436.png'
+          });
+        }, delay);
+      }
+    }
+
+    document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const date = document.getElementById('scheduleDate').value;
+      const rows = document.querySelectorAll('.hour-row');
+      const schedule = [];
+
+      rows.forEach(row => {
+        const hourLabel = row.querySelector('.hour-label').textContent;
+        const task = row.querySelector('input').value.trim();
+        if (task) {
+          schedule.push({ hourLabel, task });
+        }
+      });
+
+      localStorage.setItem('studySchedule', JSON.stringify({ date, schedule }));
+      schedule.forEach(item => scheduleNotification(date, item.hourLabel, item.task));
+      alert('Schedule saved and reminders set!');
+    });
+
+    window.addEventListener('load', () => {
+      const saved = localStorage.getItem('studySchedule');
+      if (!saved) return;
+      const { date, schedule } = JSON.parse(saved);
+      schedule.forEach(item => scheduleNotification(date, item.hourLabel, item.task));
+    });
+  </script>
+</body>
+
+</html>

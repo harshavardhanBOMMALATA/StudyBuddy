@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: white;
+    }
+
+    .bg-crazy {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle, #ff4ecd, #007cf0, #00dfd8);
+      filter: blur(80px);
+      animation: float 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      0% { transform: scale(1) translateY(0); }
+      100% { transform: scale(1.1) translateY(-30px); }
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 10;
+      position: relative;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .logo img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      margin-left: 60px;
+    }
+
+    .tabs a {
+      text-decoration: none;
+      color: #ffffffcc;
+      font-size: 18px;
+      position: relative;
+      padding: 8px 4px;
+      transition: color 0.3s ease;
+    }
+
+    .tabs a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: #00ffe7;
+      transition: width 0.3s ease;
+    }
+
+    .tabs a:hover {
+      color: #ffffff;
+    }
+
+    .tabs a:hover::after {
+      width: 100%;
+    }
+
+    .login-btn {
+      background: #00ffe7;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background: #00cfc0;
+    }
+
+    .tabs a:focus,
+    .login-btn:focus {
+      outline: 2px solid #00ffe7;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+
+      .logo {
+        align-self: flex-start;
+      }
+
+      .tabs {
+        flex-direction: column;
+        margin-left: 0;
+        gap: 15px;
+      }
+
+      .login-btn {
+        align-self: flex-end;
+      }
+    }
+
+    .content-section {
+      display: flex;
+      width: 100%;
+      height: 50vh;
+      margin-top: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .content-section .image-container {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .content-section .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .content-section .image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .content-section .text-content {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #e0e0e0;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .content-section .text-content h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #00ffe7;
+    }
+
+    .virtual-groups-btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 12px 28px;
+      background: #00ffe7;
+      color: #000;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: fit-content;
+    }
+
+    .virtual-groups-btn:hover,
+    .virtual-groups-btn:focus {
+      background: #00cfc0;
+      outline: none;
+    }
+
+    .groups-section {
+      width: 100%;
+      margin: 60px auto 40px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      padding: 30px 40px;
+      max-width: 1200px;
+      box-sizing: border-box;
+      color: #e0e0e0;
+    }
+
+    .groups-section h2 {
+      font-size: 32px;
+      color: #00ffe7;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .group-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+
+    .group-tab {
+      padding: 12px 20px;
+      background: #00ffe7;
+      color: #000;
+      font-weight: bold;
+      border-radius: 30px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      font-size: 18px;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-width: 140px;
+      box-sizing: border-box;
+      text-decoration: none;
+      word-wrap: break-word;
+    }
+
+    .group-tab:hover,
+    .group-tab:focus {
+      background: #00cfc0;
+      outline: none;
+      color: #000;
+    }
+
+    .trusted-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 30px 40px;
+      text-align: center;
+      color: #e0e0e0;
+    }
+
+    .trusted-section h2 {
+      font-size: 32px;
+      color: #00ffe7;
+      margin-bottom: 30px;
+    }
+
+    .stats-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .stat-card {
+      flex: 1 1 200px;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 30px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      min-width: 200px;
+    }
+
+    .stat-card h3 {
+      font-size: 24px;
+      color: #00ffe7;
+    }
+
+    .stat-card p {
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .reviews-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 30px 40px;
+      color: #e0e0e0;
+      text-align: center;
+    }
+
+    .reviews-section h2 {
+      font-size: 32px;
+      color: #00ffe7;
+      margin-bottom: 30px;
+    }
+
+    .reviews-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .review-card {
+      background: rgba(255, 255, 255, 0.07);
+      padding: 25px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      max-width: 300px;
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .review-card span {
+      display: block;
+      margin-top: 15px;
+      color: #00ffe7;
+      font-weight: bold;
+    }
+    /* Default (small screens): header scrolls normally */
+header {
+  position: static;
+  width: 100%;
+}
+
+/* Large screens (900px and up): header becomes sticky */
+@media (min-width: 900px) {
+  .site-header {
+    position: sticky;
+    top: 0;           /* stick right at the top */
+    left: 0;
+    right: 0;
+    z-index: 1000;    /* stay above page content */
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="bg-crazy"></div>
+  <header >
+    <div class="logo">
+      Student Buddy
+    </div>
+    <nav class="tabs" role="navigation" aria-label="Primary navigation">
+      <a href="#virtual-groups" tabindex="0">Virtual Groups</a>
+      <a href="{% url 'smartschedular' %}" tabindex="0">Smart Scheduler</a>
+      <a href="{% url 'mycollege' %}" tabindex="0">mycollege</a>
+      <a href="{% url 'community' %}" tabindex="0">Community Chat</a>
+      <a href="{% url 'mygroup' %}" tabindex="0">myGroup</a>
+     <!--  <a href="#" tabindex="0">Academics</a>  New Academics Tab -->
+     
+     <select id="skill-category" name="skill_category" style="padding: 5px 4px; background-color: #00cfc0; border-radius: 10px; font-size: 16px; color: white; cursor: pointer;" required>
+      <option value=""> select Acadamics</option>
+      <option value="10th"> 10th </option>
+      <option value="intermediate">intermediate</option>
+      <option value="jee mains"> JEE / Mains</option>
+      <option value="neet">NEET</option>
+      <option value="btech">Btech</option>
+      <option value="diploma">Diploma</option>
+      <option value="pharmacy">Pharmacy</option>
+      <option value="gate">GATE</option>
+      <option value="others">Others</option>
+
+    </select>
+    </nav>
+    <a href="{% url 'register' %}" style="padding: 7px 8px;border-radius: 10px; text-decoration: none; background-color: #00cfc0;color: black;">Signup/login</a>
+  </header>
+
+  <section class="content-section" aria-label="Introduction section">
+    <div class="image-container">
+      <img src="https://plus.unsplash.com/premium_photo-1664461662789-b72903263bad?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZGVudHxlbnwwfHwwfHx8MA%3D%3D" alt="Virtual Portal Illustration" />
+    </div>
+    <div class="text-content" id="virtual-groups">
+      <h2>Welcome to Student Buddy</h2>
+      <p>
+        Welcome to Your Student Buddy!
+        Looking for the right study group? You’re in the right place! This site connects you with study groups that match your needs—by subject, schedule, or style. Whether you’re cramming for exams, tackling tough assignments, or just want to study with others, I’m here to help you find your perfect study team. Let’s make learning easier—together!
+      </p>
+      <p>
+        Join the community chat to stay updated and engaged with your college community.
+        Sign in today to start your journey!
+      </p>
+      <a href="#groups" class="virtual-groups-btn" tabindex="0">Virtual Groups</a>
+    </div>
+  </section>
+
+  <section class="groups-section" aria-label="Groups section" id="groups">
+    <h2>Groups</h2>
+    <div class="group-tabs" role="tablist" aria-label="Groups categories">
+      <div class="group-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="softskills-panel" id="softskills-tab"><a href="{% url 'technical' %}" style="text-decoration: none; color: black;">technical</a></div>
+      <div class="group-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="softskills-panel" id="softskills-tab"><a href="{% url 'nontechnical' %}" style="text-decoration: none; color: black;">Non-technical</a></div>
+      <div class="group-tab" role="tab" tabindex="0" aria-selected="false" aria-controls="softskills-panel" id="softskills-tab"><a href="{% url 'softskills' %}" style="text-decoration: none; color: black;">Softskills</a></div>
+    </div>
+  </section>
+
+  <section class="trusted-section" aria-label="Statistics section" id="trust">
+    <h2>A platform trusted by</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Logins</h3>
+        <p>12,480+</p>
+      </div>
+      <div class="stat-card">
+        <h3>Groups</h3>
+        <p>850+</p>
+      </div>
+      <div class="stat-card">
+        <h3>Ratings</h3>
+        <p>4.8/5</p>
+      </div>
+      <div class="stat-card">
+        <h3>Feedbacks</h3>
+        <p>3,200+</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section" aria-label="User Reviews">
+    <h2>Reviews</h2>
+    <div class="reviews-container">
+      <div class="review-card">
+        <p>"Student Buddy has been a game changer for me! It's helped me find great study groups, and the community is super supportive!"</p>
+        <span>- Emily J.</span>
+      </div>
+      <div class="review-card">
+        <p>"I love how easy it is to connect with people who share the same study goals. It's a great way to keep motivated!"</p>
+        <span>- Mark T.</span>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join College Event</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #74ebd5, #9face6);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      margin-top: 60px;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    .title {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: bold;
+      color: #4a00e0;
+    }
+    .btn {
+      background-color: #4a00e0;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #8e2de2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h2 class="title mb-6">Join a College Event</h2>
+    <form>
+      <label class="block mb-2 font-medium">Your Name</label>
+      <input type="text" placeholder="Enter your name" class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400">
+
+      <label class="block mb-2 font-medium">Year</label>
+      <input type="text" placeholder="E.g., 1st year, 2nd year, etc." class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400">
+
+      <label class="block mb-2 font-medium">Department</label>
+      <input type="text" placeholder="E.g., CSE, ECE, MECH, etc." class="w-full px-4 py-2 mb-6 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400">
+
+      <button type="submit" class="btn w-full">Register for Event</button>
+    </form>
+  </div>
+</body>
+
+</html>

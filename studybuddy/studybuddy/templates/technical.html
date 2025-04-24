@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Technical - Student Buddy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      color: #00ffe7;
+      text-align: center;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .item:hover {
+      background: #00cfc0;
+      color: #000;
+    }
+
+    .add-tab {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .add-tab button {
+      padding: 12px 30px;
+      background-color: #00ffe7;
+      border: none;
+      border-radius: 30px;
+      color: #000;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .add-tab button:hover {
+      background-color: #00cfc0;
+    }
+
+    .search-container {
+      max-width: 1000px;
+      margin: 20px auto;
+      text-align: center;
+    }
+
+    .search-container input {
+      padding: 12px 20px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 30px;
+      border: 1px solid #00ffe7;
+      background-color: transparent;
+      color: white;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-container input:focus {
+      border-color: #00cfc0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Technical Resources</h1>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input type="text" id="search" placeholder="Search Streams or Skills..." onkeyup="filterItems()">
+  </div>
+
+  <section class="section">
+    <h2>Popular Technical Streams</h2>
+    <div class="grid" id="streams-grid">
+      <div class="item">Web Development</div>
+      <div class="item">Data Science</div>
+      <div class="item">Artificial Intelligence</div>
+      <div class="item">Machine Learning</div>
+      <div class="item">Cyber Security</div>
+      <div class="item">Cloud Computing</div>
+      <div class="item">Blockchain</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Top Technical Skills</h2>
+    <div class="grid" id="skills-grid">
+      <div class="item">Python</div>
+      <div class="item">JavaScript</div>
+      <div class="item">React</div>
+      <div class="item">SQL</div>
+      <div class="item">AWS</div>
+      <div class="item">Docker</div>
+      <div class="item">Linux</div>
+      <div class="item">Node.js</div>
+    </div>
+  </section>
+
+  <div class="add-tab">
+    <a href="{% url 'technicaladd' %}" class="btn" style=" padding: 5px 7px; background-color: #00ffe7; border-radius: 5px; text-decoration: none;">
+      + Add Skill skill or stream
+    </a>
+  </div>
+
+  <script>
+    // Function to filter items based on search input
+    function filterItems() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const streams = document.getElementById('streams-grid').getElementsByClassName('item');
+      const skills = document.getElementById('skills-grid').getElementsByClassName('item');
+
+      // Filter streams
+      for (let i = 0; i < streams.length; i++) {
+        const stream = streams[i];
+        if (stream.textContent.toLowerCase().includes(query)) {
+          stream.style.display = "block";
+        } else {
+          stream.style.display = "none";
+        }
+      }
+
+      // Filter skills
+      for (let i = 0; i < skills.length; i++) {
+        const skill = skills[i];
+        if (skill.textContent.toLowerCase().includes(query)) {
+          skill.style.display = "block";
+        } else {
+          skill.style.display = "none";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

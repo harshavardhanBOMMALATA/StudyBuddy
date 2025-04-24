@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Soft Skill - Student Buddy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+    h1 {
+      text-align: center;
+      color: #00ffe7;
+      margin-bottom: 20px;
+    }
+    form label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    form input[type="text"],
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    form input[type="file"] {
+      margin-top: 10px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    .buttons button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .buttons .submit-btn {
+      background-color: #00ffe7;
+      color: #000;
+    }
+    .buttons .submit-btn:hover {
+      background-color: #00cfc0;
+    }
+    .buttons .cancel-btn {
+      background-color: #444;
+      color: #fff;
+    }
+    .buttons .cancel-btn:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Add a Soft Skill</h1>
+    <form action="/submit_soft_skill" method="POST" enctype="multipart/form-data">
+      <label for="skill-name">Skill Name</label>
+      <input type="text" id="skill-name" name="skill_name" placeholder="e.g. Empathy" required />
+
+      <label for="skill-desc">Description</label>
+      <textarea id="skill-desc" name="skill_description" placeholder="Brief description of the skill…" required></textarea>
+
+      <label for="skill-resources">Upload Resource Files (PDF, DOC)</label>
+      <input type="file" id="skill-resources" name="skill_resources" accept=".pdf,.doc,.docx" multiple />
+
+      <div class="buttons">
+        <button type="button" class="cancel-btn" onclick="history.back()">Cancel</button>
+        <button type="submit" class="submit-btn">Add Skill</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
